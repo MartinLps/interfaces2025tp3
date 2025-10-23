@@ -527,12 +527,22 @@ class BlockaGame {
             'img/blackops3.jpg',
             'img/uncharted4.jpg',
             'img/fifa23.jpg',
-            'img/fifa22.jpg'
+            'img/fifa22.jpg',
+            'img/inscryption.jpg',
+            'img/katana zero.jpg'
         ];
         this.currentImage = '';
         this.puzzle = [];
         this.correctPositions = [];
         this.fixedPieces = new Set();
+        
+        // Configuración de piezas
+        this.selectedPieces = 4; // Por defecto 4 piezas
+        this.pieceConfigs = {
+            4: { rows: 2, cols: 2, gridClass: 'grid-2x2' },
+            6: { rows: 2, cols: 3, gridClass: 'grid-2x3' },
+            8: { rows: 2, cols: 4, gridClass: 'grid-2x4' }
+        };
         
         this.init();
     }
@@ -589,6 +599,15 @@ class BlockaGame {
                 this.goToMenu();
             });
         }
+        
+        // Selector de piezas
+        const piecesSelector = document.getElementById('pieces-selector');
+        if (piecesSelector) {
+            piecesSelector.addEventListener('change', (e) => {
+                this.selectedPieces = parseInt(e.target.value);
+                console.log('Piezas seleccionadas:', this.selectedPieces);
+            });
+        }
 
         
         // Imagen de referencia
@@ -626,6 +645,10 @@ class BlockaGame {
         this.isGameActive = true;
         this.timer = this.levelTimeLimit[this.currentLevel] || 15;
         
+        // Actualizar el nivel mostrado en el header
+        const currentLevelSpan = document.getElementById('current-level');
+        if (currentLevelSpan) currentLevelSpan.textContent = this.currentLevel;
+        
         // Mostrar botones del juego
         const startBtn = document.getElementById('start-btn');
         const restartBtn = document.getElementById('restart-btn');
@@ -659,9 +682,11 @@ class BlockaGame {
         this.puzzle = [];
         this.correctPositions = [];
         
-        const totalPieces = 4;
-        const cols = 2;
-        const rows = 2;
+        // Usar configuración seleccionada
+        const config = this.pieceConfigs[this.selectedPieces];
+        const totalPieces = this.selectedPieces;
+        const cols = config.cols;
+        const rows = config.rows;
         
         for (let i = 0; i < totalPieces; i++) {
             const piece = {
@@ -693,9 +718,11 @@ class BlockaGame {
         document.getElementById('game-board').style.display = 'block';
         
         const puzzleGrid = document.getElementById('puzzle-grid');
-        const totalPieces = 4;
+        const config = this.pieceConfigs[this.selectedPieces];
+        const totalPieces = this.selectedPieces;
         
-        puzzleGrid.className = 'puzzle-grid grid-2x2';
+        // Configurar grid según número de piezas
+        puzzleGrid.className = `puzzle-grid ${config.gridClass}`;
         puzzleGrid.innerHTML = '';
         
         this.puzzle.forEach((piece, index) => {
@@ -705,7 +732,10 @@ class BlockaGame {
             
             pieceElement.style.backgroundImage = `url(${this.currentImage})`;
             pieceElement.style.backgroundPosition = piece.backgroundPosition;
-            pieceElement.style.backgroundSize = '200% 200%';
+            
+            // Calcular backgroundSize dinámicamente
+            const backgroundSize = `${config.cols * 100}% ${config.rows * 100}%`;
+            pieceElement.style.backgroundSize = backgroundSize;
             
             pieceElement.style.transform = `rotate(${piece.currentRotation}deg)`;
             
@@ -892,6 +922,8 @@ class BlockaGame {
     goToMenu() {
         this.stopTimer();
         this.isGameActive = false;
+        
+        this.currentLevel = 1;
         
         // Resetear color del temporizador
         const timerElement = document.getElementById('timer');
