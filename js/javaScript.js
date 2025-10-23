@@ -513,12 +513,12 @@ class BlockaGame {
         this.isGameActive = false;
 
         this.gameImages = [
-            '../img/fifa24.jpeg',
-            '../img/cs2.jpg',
-            '../img/black%20ops3.jpeg',
-            '../img/Uncharted_4_portada.webp',
-            '../img/fifa23.jpeg',
-            '../img/fifa22.jpeg'
+            'img/ror2.jpg',
+            'img/cs2.jpg',
+            'img/blackops3.jpg',
+            'img/uncharted4.jpg',
+            'img/fifa23.jpg',
+            'img/fifa22.jpg'
         ];
         this.currentImage = '';
         this.puzzle = [];
@@ -574,6 +574,7 @@ class BlockaGame {
                 const referenceImg = document.getElementById('reference-image');
                 if (referenceImg) {
                     referenceImg.style.display = e.target.checked ? 'block' : 'none';
+                    console.log('Referencia mostrada:', e.target.checked);
                 }
             });
         }
@@ -627,7 +628,11 @@ class BlockaGame {
         this.currentImage = this.gameImages[randomIndex];
         
         // Configurar imagen de referencia
-        document.getElementById('reference-img').src = this.currentImage;
+        const referenceImg = document.getElementById('reference-img');
+        if (referenceImg) {
+            referenceImg.src = this.currentImage;
+            console.log('Imagen de referencia configurada:', this.currentImage);
+        }
         
         return Promise.resolve();
     }
