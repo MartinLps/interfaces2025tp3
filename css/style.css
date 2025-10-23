@@ -1905,3 +1905,708 @@ hr {
     font-family: 'Roboto', sans-serif;
     font-size: 40px;
 }
+
+.blocka-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header del juego */
+.blocka-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.blocka-info h2 {
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.blocka-level {
+    color: #2DD4BF;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.blocka-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.blocka-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.blocka-timer i {
+    color: #2DD4BF;
+}
+
+.blocka-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Botones del juego */
+.blocka-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.blocka-btn.primary {
+    background: linear-gradient(45deg, #2DD4BF, #14B8A6);
+    color: white;
+    box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
+}
+
+.blocka-btn.primary:hover {
+    background: linear-gradient(45deg, #14B8A6, #0F766E);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45, 212, 191, 0.4);
+}
+
+.blocka-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.blocka-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.blocka-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Área del juego */
+.blocka-game-area {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    position: relative;
+}
+
+/* Pantalla de inicio */
+.blocka-start-screen {
+    text-align: center;
+    color: #fff;
+}
+
+.blocka-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.blocka-icon {
+    font-size: 80px;
+    color: #2DD4BF;
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+}
+
+.blocka-welcome h3 {
+    font-size: 32px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.blocka-welcome p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.blocka-difficulty {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.blocka-difficulty label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2DD4BF;
+}
+
+.blocka-difficulty select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 2px solid #2DD4BF;
+    background: #222831;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.blocka-difficulty select option {
+    background: #222831;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Selección de imagen */
+.blocka-image-selection {
+    text-align: center;
+    color: #fff;
+    width: 100%;
+}
+
+.blocka-image-selection h3 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #2DD4BF;
+}
+
+.blocka-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.thumbnail.selected {
+    border-color: #2DD4BF;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+}
+
+.thumbnail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+}
+
+/* Tablero del juego */
+.blocka-game-board {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.blocka-puzzle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.puzzle-grid {
+    display: grid;
+    gap: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-grid.grid-2x2 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.puzzle-grid.grid-2x3 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.puzzle-grid.grid-2x4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.puzzle-piece {
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.puzzle-piece:hover {
+    transform: scale(1.05);
+    border-color: #2DD4BF;
+    box-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+}
+
+.puzzle-piece.correct {
+    border-color: #10B981;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+}
+
+.puzzle-piece.fixed {
+    border-color: #F59E0B;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+    cursor: not-allowed;
+}
+
+.puzzle-piece.fixed::after {
+    content: '🔒';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Filtros de imagen */
+.filter-grayscale {
+    filter: grayscale(100%);
+}
+
+.filter-brightness {
+    filter: brightness(30%);
+}
+
+.filter-negative {
+    filter: invert(100%);
+}
+
+.filter-sepia {
+    filter: sepia(100%);
+}
+
+.filter-blur {
+    filter: blur(2px);
+}
+
+/* Imagen de referencia */
+.blocka-reference {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.reference-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.reference-toggle input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.reference-image {
+    max-width: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.reference-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Pantalla de éxito */
+.blocka-success-screen {
+    text-align: center;
+    color: #fff;
+    animation: successAppear 0.5s ease-out;
+}
+
+.success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.success-icon {
+    font-size: 80px;
+    color: #F59E0B;
+    animation: bounceIn 0.6s ease-out;
+}
+
+.success-content h3 {
+    font-size: 32px;
+    margin: 0;
+    color: #10B981;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.success-stats {
+    display: flex;
+    gap: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px 30px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2DD4BF;
+}
+
+.success-actions {
+    display: flex;
+    gap: 15px;
+}
+
+/* Barra de progreso */
+.blocka-progress {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #2DD4BF, #10B981);
+    border-radius: 6px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+    animation: shimmer 2s infinite;
+}
+
+.progress-text {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Iconos de control */
+.control-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #2DD4BF, #14B8A6);
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
+}
+
+/* Ejemplos visuales */
+.imagen-blocka {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.imagen-blocka h3 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+}
+
+.nivel-examples {
+    display: flex;
+    gap: 30px;
+}
+
+.nivel-example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.nivel-title {
+    color: #2DD4BF;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ejemplo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.ejemplo-piece {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 4px;
+}
+
+.ejemplo-grid.grayscale .ejemplo-piece {
+    filter: grayscale(100%);
+}
+
+.ejemplo-grid.brightness .ejemplo-piece {
+    filter: brightness(40%);
+}
+
+.rotation-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.piece-demo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #F59E0B, #D97706);
+    border-radius: 8px;
+    position: relative;
+}
+
+.piece-demo.original::after {
+    content: '1';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.piece-demo.rotated {
+    transform: rotate(90deg);
+}
+
+.piece-demo.rotated::after {
+    content: '2';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.rotation-arrows {
+    display: flex;
+    gap: 20px;
+    color: #2DD4BF;
+    font-size: 24px;
+}
+
+.rotation-arrows i {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.rotation-arrows i:hover {
+    transform: scale(1.2);
+}
+
+/* Animaciones específicas del juego */
+@keyframes successAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pieceRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(90deg);
+    }
+}
+
+/* Responsive para BLOCKA */
+@media (max-width: 480px) {
+    .blocka-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .blocka-controls {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .blocka-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .puzzle-piece {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .blocka-thumbnails {
+        justify-content: center;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .success-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .nivel-examples {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Estilos específicos para la página del juego */
+.game-content {
+    padding: 0 250px;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+}
+
+.main-container:has(.game-content) {
+    justify-content: center;
+}
+
+
