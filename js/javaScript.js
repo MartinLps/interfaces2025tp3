@@ -623,24 +623,15 @@ class BlockaGame {
     }
 
     async selectRandomImage() {
-        // Seleccionar imagen aleatoria diferente a la actual
-        let newImage;
-        let attempts = 0;
-        const maxAttempts = 10;
-        
-        do {
-            const randomIndex = Math.floor(Math.random() * this.gameImages.length);
-            newImage = this.gameImages[randomIndex];
-            attempts++;
-        } while (newImage === this.currentImage && this.gameImages.length > 1 && attempts < maxAttempts);
-        
-        this.currentImage = newImage;
+        // Seleccionar imagen aleatoria directamente
+        const randomIndex = Math.floor(Math.random() * this.gameImages.length);
+        this.currentImage = this.gameImages[randomIndex];
         
         // Configurar imagen de referencia
         const referenceImg = document.getElementById('reference-img');
         if (referenceImg) {
             referenceImg.src = this.currentImage;
-            console.log('Nueva imagen seleccionada para el juego:', this.currentImage);
+            console.log('Imagen de referencia configurada:', this.currentImage);
         }
         
         return Promise.resolve();
@@ -706,8 +697,16 @@ class BlockaGame {
             // Aplicar rotación inicial
             pieceElement.style.transform = `rotate(${piece.currentRotation}deg)`;
             
-            // Aplicar filtro según el nivel
-            this.applyLevelFilter(pieceElement);
+            // Verificar si la pieza ya está en la posición correcta
+            const isCorrect = piece.currentRotation === piece.correctRotation;
+            
+            if (isCorrect) {
+                pieceElement.classList.add('correct');
+                // No aplicar filtros si está correcta
+            } else {
+                // Aplicar filtro según el nivel solo si no está correcta
+                this.applyLevelFilter(pieceElement);
+            }
             
             // Eventos de click
             pieceElement.addEventListener('click', (e) => this.rotatePiece(e, piece.id, -90));
@@ -721,6 +720,9 @@ class BlockaGame {
         
         // Actualizar contador de piezas
         document.getElementById('total-pieces').textContent = totalPieces;
+        
+        // Actualizar progreso inicial para reflejar piezas que ya están correctas
+        this.updateProgress();
     }
 
     applyLevelFilter(element) {
