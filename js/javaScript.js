@@ -623,15 +623,24 @@ class BlockaGame {
     }
 
     async selectRandomImage() {
-        // Seleccionar imagen aleatoria directamente
-        const randomIndex = Math.floor(Math.random() * this.gameImages.length);
-        this.currentImage = this.gameImages[randomIndex];
+        // Seleccionar imagen aleatoria diferente a la actual
+        let newImage;
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        do {
+            const randomIndex = Math.floor(Math.random() * this.gameImages.length);
+            newImage = this.gameImages[randomIndex];
+            attempts++;
+        } while (newImage === this.currentImage && this.gameImages.length > 1 && attempts < maxAttempts);
+        
+        this.currentImage = newImage;
         
         // Configurar imagen de referencia
         const referenceImg = document.getElementById('reference-img');
         if (referenceImg) {
             referenceImg.src = this.currentImage;
-            console.log('Imagen de referencia configurada:', this.currentImage);
+            console.log('Nueva imagen seleccionada para el juego:', this.currentImage);
         }
         
         return Promise.resolve();
