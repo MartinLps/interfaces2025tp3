@@ -511,6 +511,15 @@ class BlockaGame {
         this.timer = 0;
         this.timerInterval = null;
         this.isGameActive = false;
+        
+        this.levelTimeLimit = {
+            1: 15,
+            2: 15,
+            3: 15,
+            4: 15,
+            5: 15,
+            6: 15
+        };
 
         this.gameImages = [
             'img/ror2.jpg',
@@ -534,7 +543,6 @@ class BlockaGame {
     }
 
     bindEvents() {
-        // Botones principales
         const startBtn = document.getElementById('start-btn');
         const restartBtn = document.getElementById('restart-btn');
         const menuBtn = document.getElementById('menu-btn');
@@ -565,6 +573,22 @@ class BlockaGame {
             });
         }
         
+        const retryBtn = document.getElementById('retry-btn');
+        const menuGameOverBtn = document.getElementById('menu-game-over-btn');
+        
+        if (retryBtn) {
+            retryBtn.addEventListener('click', () => {
+                console.log('Botón reintentar clickeado');
+                this.restartLevel();
+            });
+        }
+        
+        if (menuGameOverBtn) {
+            menuGameOverBtn.addEventListener('click', () => {
+                console.log('Botón menú desde game over clickeado');
+                this.goToMenu();
+            });
+        }
 
         
         // Imagen de referencia
@@ -600,7 +624,7 @@ class BlockaGame {
     async startGame() {
         console.log('Iniciando juego...');
         this.isGameActive = true;
-        this.timer = 0;
+        this.timer = this.levelTimeLimit[this.currentLevel] || 15;
         
         // Mostrar botones del juego
         const startBtn = document.getElementById('start-btn');
@@ -609,25 +633,19 @@ class BlockaGame {
         if (startBtn) startBtn.style.display = 'none';
         if (restartBtn) restartBtn.style.display = 'flex';
         
-        // Seleccionar imagen aleatoria
         await this.selectRandomImage();
         
-        // Crear puzzle
         this.createPuzzle();
         
-        // Mostrar tablero
         this.showGameBoard();
         
-        // Iniciar temporizador
         this.startTimer();
     }
 
     async selectRandomImage() {
-        // Seleccionar imagen aleatoria directamente
         const randomIndex = Math.floor(Math.random() * this.gameImages.length);
         this.currentImage = this.gameImages[randomIndex];
         
-        // Configurar imagen de referencia
         const referenceImg = document.getElementById('reference-img');
         if (referenceImg) {
             referenceImg.src = this.currentImage;
@@ -641,24 +659,22 @@ class BlockaGame {
         this.puzzle = [];
         this.correctPositions = [];
         
-        const totalPieces = 4; // Siempre 2x2
+        const totalPieces = 4;
         const cols = 2;
         const rows = 2;
         
-        // Crear piezas
         for (let i = 0; i < totalPieces; i++) {
             const piece = {
                 id: i,
                 currentRotation: 0,
-                correctRotation: 0, // La rotación correcta es siempre 0 (imagen original)
+                correctRotation: 0,
                 backgroundPosition: this.calculateBackgroundPosition(i, cols, rows)
             };
             
-            // Rotar aleatoriamente (0, 90, 180, 270 grados)
             piece.currentRotation = Math.floor(Math.random() * 4) * 90;
             
             this.puzzle.push(piece);
-            this.correctPositions.push(0); // Todas las piezas deben estar en rotación 0 para formar la imagen original
+            this.correctPositions.push(0);
         }
         
         this.updateProgress();
@@ -677,24 +693,20 @@ class BlockaGame {
         document.getElementById('game-board').style.display = 'block';
         
         const puzzleGrid = document.getElementById('puzzle-grid');
-        const totalPieces = 4; // Siempre 2x2 (4 piezas)
+        const totalPieces = 4;
         
-        // Configurar grid para 2x2
         puzzleGrid.className = 'puzzle-grid grid-2x2';
         puzzleGrid.innerHTML = '';
         
-        // Crear elementos de las piezas
         this.puzzle.forEach((piece, index) => {
             const pieceElement = document.createElement('div');
             pieceElement.className = 'puzzle-piece';
             pieceElement.dataset.pieceId = piece.id;
             
-            // Configurar imagen de fondo
             pieceElement.style.backgroundImage = `url(${this.currentImage})`;
             pieceElement.style.backgroundPosition = piece.backgroundPosition;
-            pieceElement.style.backgroundSize = '200% 200%'; // 2x2 = 200% en cada dirección
+            pieceElement.style.backgroundSize = '200% 200%';
             
-            // Aplicar rotación inicial
             pieceElement.style.transform = `rotate(${piece.currentRotation}deg)`;
             
             // Verificar si la pieza ya está en la posición correcta
@@ -813,6 +825,16 @@ class BlockaGame {
         }, 1000);
     }
 
+    gameOver() {
+        this.isGameActive = false;
+        this.stopTimer();
+        
+        // Mostrar pantalla de game over
+        setTimeout(() => {
+            this.showGameOverScreen();
+        }, 500);
+    }
+
     showSuccessScreen() {
         this.hideAllScreens();
         document.getElementById('success-screen').style.display = 'block';
@@ -829,6 +851,22 @@ class BlockaGame {
         } else {
             nextLevelBtn.disabled = false;
             nextLevelBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Siguiente Nivel';
+        }
+    }
+
+    showGameOverScreen() {
+        this.hideAllScreens();
+        
+        // Mostrar pantalla de game over y actualizar estadísticas
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const gameOverLevel = document.getElementById('game-over-level');
+        
+        if (gameOverLevel) {
+            gameOverLevel.textContent = this.currentLevel;
+        }
+        
+        if (gameOverScreen) {
+            gameOverScreen.style.display = 'block';
         }
     }
 
@@ -854,13 +892,24 @@ class BlockaGame {
     goToMenu() {
         this.stopTimer();
         this.isGameActive = false;
+        
+        // Resetear color del temporizador
+        const timerElement = document.getElementById('timer');
+        if (timerElement) {
+            timerElement.style.color = '#4caf50';
+        }
+        
         this.showStartScreen();
     }
 
     startTimer() {
         this.timerInterval = setInterval(() => {
-            this.timer++;
-            document.getElementById('timer').textContent = this.formatTime(this.timer);
+            this.timer--;
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = this.formatTime(this.timer);
+            if (this.timer <= 0) {
+                this.gameOver();
+            }
         }, 1000);
     }
 
@@ -882,7 +931,8 @@ class BlockaGame {
             'start-screen',
             'image-selection', 
             'game-board',
-            'success-screen'
+            'success-screen',
+            'game-over-screen'
         ];
         
         screens.forEach(screenId => {

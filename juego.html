@@ -187,6 +187,29 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Pantalla de Game Over -->
+                    <div id="game-over-screen" class="blocka-game-over-screen" style="display: none;">
+                        <div class="game-over-content">
+                            <i class="fas fa-times-circle game-over-icon"></i>
+                            <h3>¡Tiempo Agotado!</h3>
+                            <p>No pudiste completar el nivel a tiempo</p>
+                            <div class="game-over-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Nivel:</span>
+                                    <span class="stat-value" id="game-over-level">1</span>
+                                </div>
+                            </div>
+                            <div class="game-over-actions">
+                                <button id="retry-btn" class="blocka-btn primary">
+                                    <i class="fas fa-redo"></i> Reintentar Nivel
+                                </button>
+                                <button id="menu-game-over-btn" class="blocka-btn secondary">
+                                    <i class="fas fa-home"></i> Menú Principal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Barra de progreso -->
