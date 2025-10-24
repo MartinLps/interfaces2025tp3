@@ -608,7 +608,6 @@ class BlockaGame {
                 this.goToMenu();
             });
         }
-
         
         // Imagen de referencia
         const showReferenceCheckbox = document.getElementById('show-reference');
@@ -644,6 +643,10 @@ class BlockaGame {
         console.log('Iniciando juego...');
         this.isGameActive = true;
         this.timer = this.levelTimeLimit[this.currentLevel] || 15;
+        
+        // Actualizar el nivel mostrado en el header
+        const currentLevelSpan = document.getElementById('current-level');
+        if (currentLevelSpan) currentLevelSpan.textContent = this.currentLevel;
         
         // Mostrar botones del juego
         const startBtn = document.getElementById('start-btn');
@@ -918,6 +921,8 @@ class BlockaGame {
     goToMenu() {
         this.stopTimer();
         this.isGameActive = false;
+        
+        this.currentLevel = 1;
         
         // Resetear color del temporizador
         const timerElement = document.getElementById('timer');
