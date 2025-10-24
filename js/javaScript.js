@@ -530,14 +530,14 @@ class BlockaGame {
         this.selectedPieceCount = 4; // Por defecto 4 piezas
 
         this.gameImages = [
-            'img/ror2.jpg',
-            'img/cs2.jpg',
-            'img/blackops3.jpg',
-            'img/uncharted4.jpg',
-            'img/fifa23.jpg',
-            'img/fifa22.jpg',
-            'img/inscryption.jpg',
-            'img/katana zero.jpg'
+            './img/ror2.jpg',
+            './img/cs2.jpg',
+            './img/blackops3.jpg',
+            './img/uncharted4.jpg',
+            './img/fifa23.jpg',
+            './img/fifa22.jpg',
+            './img/inscryption.jpg',
+            './img/katana zero.jpg'
         ];
         this.currentImage = '';
         this.puzzle = [];
